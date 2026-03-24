@@ -8,6 +8,8 @@ public class HelpdeskApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(HelpdeskApplication.class, args);
+		
+		System.out.println("Ola mundo");
 	}
 
 }
