@@ -13,14 +13,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="chamados", schema = "public")
 public class Chamado implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chamados_seq")
+	@SequenceGenerator(schema = "public", name="chamados_seq", sequenceName = "chamados_seq")
 	private Integer id;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")

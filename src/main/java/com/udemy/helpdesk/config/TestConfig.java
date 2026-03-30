@@ -11,13 +11,10 @@ import com.udemy.helpdesk.services.DBService;
 @Profile("test")
 public class TestConfig 
 {
-	@Autowired
-	private DBService dbservice;
 	
-	@Bean
-	public void instanciaDB() 
-	{
-		this.dbservice.instanciaDB();
-	}
+	  @Autowired private DBService dbservice;
+	  
+	  @Bean public void instanciaDB() { this.dbservice.instanciaDB(); }
+	 
 
 }

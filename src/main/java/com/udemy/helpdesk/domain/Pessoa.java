@@ -3,7 +3,6 @@ package com.udemy.helpdesk.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,14 +17,18 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="pessoas", schema = "public")
 public abstract class Pessoa implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoas_seq")
+	@SequenceGenerator(schema = "public", name="pessoas_seq", sequenceName = "pessoas_seq")
 	protected Integer id;
 	
 	@Column(unique = true)
