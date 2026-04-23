@@ -24,7 +24,7 @@ public class Chamado implements Serializable
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chamados_seq")
-	@SequenceGenerator(schema = "public", name="chamados_seq", sequenceName = "chamados_seq")
+	@SequenceGenerator(schema = "public", name="chamados_seq", sequenceName = "chamados_seq", allocationSize = 1)
 	private Integer id;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")

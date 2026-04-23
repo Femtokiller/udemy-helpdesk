@@ -11,6 +11,8 @@ import com.udemy.helpdesk.domain.enums.Perfil;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,32 +23,32 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="pessoas", schema = "public")
-public abstract class Pessoa implements Serializable
-{
+@Table(name = "pessoas", schema = "public")
+@DiscriminatorColumn(name = "perfil", discriminatorType = DiscriminatorType.STRING, length = 20)
+public abstract class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoas_seq")
-	@SequenceGenerator(schema = "public", name="pessoas_seq", sequenceName = "pessoas_seq")
+	@SequenceGenerator(schema = "public", name = "pessoas_seq", sequenceName = "pessoas_seq", allocationSize = 1)
 	protected Integer id;
-	
+
 	@Column(unique = true)
 	protected String cpf;
-	
+
 	@Column(unique = true)
 	protected String email;
-	
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "PERFIS")
-	protected Set<Integer> perfils = new HashSet<>();
-	
+
+	protected Integer perfilsId;
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Column(name = "dataCriacao")
 	protected LocalDate dataCriacao = LocalDate.now();
-	
+
 	protected String nome;
 	protected String senha;
 	
+
 	public Pessoa() {
 		super();
 		addPerfil(Perfil.CLIENTE);
@@ -102,14 +104,19 @@ public abstract class Pessoa implements Serializable
 		this.senha = senha;
 	}
 
-	public Set<Perfil> getPerfils() {
-		return perfils.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	
+	public Set<Perfil> getPerfils() 
+	{ 
+		Set<Perfil> perfil = new HashSet<>();
+		perfil.add(Perfil.toEnum(this.perfilsId));
+		return perfil;
 	}
-
-	public void addPerfil(Perfil perfil) {
-		this.perfils.add(perfil.getCodigo());
+	  
+	public void addPerfil(Perfil perfil) { 
+		//this.codigo.add(perfil.getCodigo());
+		this.perfilsId = perfil.getCodigo();
 	}
-
+	 
 	public LocalDate getDataCriacao() {
 		return dataCriacao;
 	}
@@ -117,7 +124,7 @@ public abstract class Pessoa implements Serializable
 	public void setDataCriacao(LocalDate dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -147,5 +154,5 @@ public abstract class Pessoa implements Serializable
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
 }
