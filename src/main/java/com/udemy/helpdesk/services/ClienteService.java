@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.udemy.helpdesk.domain.Cliente;
 import com.udemy.helpdesk.repositories.ClienteRepository;
+import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClienteService 
@@ -18,6 +19,6 @@ public class ClienteService
 	{
 		Optional<Cliente> obj = repository.findById(id);
 		
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id));
 	}
 }
