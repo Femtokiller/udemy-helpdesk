@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udemy.helpdesk.domain.Cliente;
+import com.udemy.helpdesk.domain.dtos.ClienteDTO;
 import com.udemy.helpdesk.services.ClienteService;
 
 @RestController
@@ -18,9 +19,9 @@ public class ClienteResource
 	private ClienteService service;
 	
 	@GetMapping(value="/{id}")
-	public ResponseEntity<Cliente> findById(@PathVariable Integer id)
+	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id)
 	{
 		Cliente obj = this.service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(new ClienteDTO(obj));
 	}
 }
