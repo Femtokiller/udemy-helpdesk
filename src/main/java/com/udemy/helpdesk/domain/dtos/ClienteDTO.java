@@ -27,18 +27,20 @@ public class ClienteDTO  implements Serializable{
 
 	public ClienteDTO() {
 		super();
+		addPerfil(Perfil.CLIENTE);
 
 	}
 
-	public ClienteDTO(Cliente obj) {
+	public ClienteDTO(Cliente cliente) {
 		super();
-		this.id = obj.getId();
-		this.cpf = obj.getCpf();
-		this.email = obj.getEmail();
-		this.perfis = obj.getPerfils().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
-		this.dataCriacao = obj.getDataCriacao();
-		this.nome = obj.getNome();
-		this.senha = obj.getSenha();
+		this.id = cliente.getId();
+		this.cpf = cliente.getCpf();
+		this.email = cliente.getEmail();
+		//this.perfis = cliente.getPerfils().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+		this.dataCriacao = cliente.getDataCriacao();
+		this.nome = cliente.getNome();
+		this.senha = cliente.getSenha();
+		addPerfil(Perfil.CLIENTE);
 	}
 
 	public Integer getId() {
@@ -83,10 +85,10 @@ public class ClienteDTO  implements Serializable{
 
 	public Set<Perfil> getPerfis() {
 		
-		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+		return perfis.stream().map(perfil -> Perfil.toEnum(perfil)).collect(Collectors.toSet());
 	}
 
-	public void addPerfis(Perfil perfil) {
+	public void addPerfil(Perfil perfil) {
 		this.perfis.add(perfil.getCodigo());
 	}
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.udemy.helpdesk.domain.Tecnico;
+import com.udemy.helpdesk.domain.dtos.TecnicoDTO;
 import com.udemy.helpdesk.repositories.TecnicoRepository;
 import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
 
@@ -18,13 +19,19 @@ public class TecnicoService
 	
 	public Tecnico findById(Integer id)
 	{
-		Optional<Tecnico> obj = repository.findById(id);
-		
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id));
+		Optional<Tecnico> tecnico = repository.findById(id);		
+		return tecnico.orElseThrow(() -> new ObjectNotFoundException("Técnico não encontrado! ID: " + id));
 	}
 
 	public List<Tecnico> findAll() {
 		return repository.findAll();
+	}
+
+	public Tecnico create(TecnicoDTO tecnicoRequest) 
+	{
+		tecnicoRequest.setId(null);
+		Tecnico tecnico = new Tecnico(tecnicoRequest);
+		return repository.save(tecnico);
 	}
 	
 	

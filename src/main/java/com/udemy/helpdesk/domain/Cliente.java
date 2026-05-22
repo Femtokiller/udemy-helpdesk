@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.udemy.helpdesk.domain.dtos.ClienteDTO;
 import com.udemy.helpdesk.domain.enums.Perfil;
 
 import jakarta.persistence.DiscriminatorValue;
@@ -27,6 +28,17 @@ public class Cliente extends Pessoa
 
 	public Cliente(Integer id, String nome, String cpf, String email, String senha) {
 		super(id, nome, cpf, email, senha);
+		addPerfil(Perfil.CLIENTE);
+	}
+	
+	public Cliente(ClienteDTO clienteDto) {
+		super();
+		this.id = clienteDto.getId();
+		this.cpf = clienteDto.getCpf();
+		this.email = clienteDto.getEmail();
+		this.dataCriacao = clienteDto.getDataCriacao();
+		this.nome = clienteDto.getNome();
+		this.senha = clienteDto.getSenha();
 		addPerfil(Perfil.CLIENTE);
 	}
 

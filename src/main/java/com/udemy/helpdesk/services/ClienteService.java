@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.udemy.helpdesk.domain.Cliente;
+import com.udemy.helpdesk.domain.dtos.ClienteDTO;
 import com.udemy.helpdesk.repositories.ClienteRepository;
 import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
 
@@ -18,12 +19,17 @@ public class ClienteService
 	
 	public Cliente findById(Integer id)
 	{
-		Optional<Cliente> obj = repository.findById(id);
-		
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id));
+		Optional<Cliente> cliente = repository.findById(id);		
+		return cliente.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado! ID: " + id));
 	}
 
 	public List<Cliente> findAll() {
 		return repository.findAll();
+	}
+
+	public Cliente create(ClienteDTO clienteRequest) {
+		clienteRequest.setId(null);
+		Cliente cliente = new Cliente(clienteRequest);
+		return repository.save(cliente);
 	}
 }

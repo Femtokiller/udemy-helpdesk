@@ -1,5 +1,6 @@
 package com.udemy.helpdesk.resources;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.udemy.helpdesk.domain.Tecnico;
 import com.udemy.helpdesk.domain.dtos.TecnicoDTO;
@@ -25,18 +29,27 @@ public class TecnicoResource
 	@GetMapping(value="/{id}")
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id)
 	{
-		Tecnico obj = this.service.findById(id);
-		return ResponseEntity.ok().body(new TecnicoDTO(obj));
+		Tecnico tecnico = this.service.findById(id);
+		return ResponseEntity.ok().body(new TecnicoDTO(tecnico));
 	}
 	
 	
 	@GetMapping
 	public ResponseEntity<List<TecnicoDTO>> findAll()
 	{
-		List<Tecnico> obj = this.service.findAll();
+		List<Tecnico> tecnicoList = this.service.findAll();
 		
-		List<TecnicoDTO> listDto = obj.stream().map(x -> new TecnicoDTO(x)).collect(Collectors.toList());
+		List<TecnicoDTO> tecnicoDtoList = tecnicoList.stream().map(tecnico -> new TecnicoDTO(tecnico)).collect(Collectors.toList());
 		
-		return ResponseEntity.ok().body(listDto);
+		return ResponseEntity.ok().body(tecnicoDtoList);
+	}
+	
+	@PostMapping
+	public ResponseEntity<TecnicoDTO> create(@RequestBody TecnicoDTO tecnicoRequest)
+	{
+		Tecnico tecnico = this.service.create(tecnicoRequest);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tecnico.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+		
 	}
 }
