@@ -1,5 +1,9 @@
 package com.udemy.helpdesk.resources;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,5 +27,16 @@ public class TecnicoResource
 	{
 		Tecnico obj = this.service.findById(id);
 		return ResponseEntity.ok().body(new TecnicoDTO(obj));
+	}
+	
+	
+	@GetMapping
+	public ResponseEntity<List<TecnicoDTO>> findAll()
+	{
+		List<Tecnico> obj = this.service.findAll();
+		
+		List<TecnicoDTO> listDto = obj.stream().map(x -> new TecnicoDTO(x)).collect(Collectors.toList());
+		
+		return ResponseEntity.ok().body(listDto);
 	}
 }
