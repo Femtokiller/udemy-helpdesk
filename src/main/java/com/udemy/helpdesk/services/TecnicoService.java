@@ -1,18 +1,18 @@
 package com.udemy.helpdesk.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.udemy.helpdesk.domain.Pessoa;
 import com.udemy.helpdesk.domain.Tecnico;
 import com.udemy.helpdesk.domain.dtos.TecnicoDTO;
-import com.udemy.helpdesk.repositories.PessoaRepository;
 import com.udemy.helpdesk.repositories.TecnicoRepository;
-import com.udemy.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
+
+import jakarta.validation.Valid;
 
 @Service
 public class TecnicoService 
@@ -42,9 +42,21 @@ public class TecnicoService
 		return tecnicoRepository.save(tecnico);
 	}
 
-
+	public Tecnico update(Integer id, @Valid TecnicoDTO tecnicoRequest) 
+	{
+		tecnicoRequest.setId(id);
+		Tecnico tecnico = findById(id);
+		LocalDate dataCriacao = tecnico.getDataCriacao(); 
+		
+		if(!tecnicoRequest.getCpf().isEmpty())
+			pessoaService.validaCpf(tecnicoRequest.getCpf(), id);
+		
+		if(tecnicoRequest.getEmail().isEmpty())
+			pessoaService.validaEmail(tecnicoRequest.getEmail(), id);
+		
+		tecnico = new Tecnico(tecnicoRequest);
+		tecnico.setDataCriacao(dataCriacao);
+		return tecnicoRepository.save(tecnico);
+	}
 	
-	
-	
-
 }

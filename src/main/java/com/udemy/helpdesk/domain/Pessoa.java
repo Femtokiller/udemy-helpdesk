@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.udemy.helpdesk.domain.enums.Perfil;
 
@@ -29,6 +31,7 @@ public abstract class Pessoa implements Serializable {
 	@SequenceGenerator(schema = "public", name = "pessoas_seq", sequenceName = "pessoas_seq", allocationSize = 1)
 	protected Integer id;
 
+	@CPF
 	@Column(unique = true)
 	protected String cpf;
 
@@ -40,6 +43,10 @@ public abstract class Pessoa implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "dataCriacao")
 	protected LocalDate dataCriacao = LocalDate.now();
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Column(name = "dataAtualizacao")
+	protected LocalDate dataAtualizacao = LocalDate.now();
 
 	protected String nome;
 	protected String senha;
@@ -121,6 +128,14 @@ public abstract class Pessoa implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 	
+	public LocalDate getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(LocalDate dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

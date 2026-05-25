@@ -35,6 +35,9 @@ public class ClienteDTO  implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
 
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	protected LocalDate dataAtualizacao = LocalDate.now();
+	
 	public ClienteDTO() {
 		super();
 		addPerfil(Perfil.CLIENTE);
@@ -48,6 +51,7 @@ public class ClienteDTO  implements Serializable{
 		this.email = cliente.getEmail();
 		//this.perfis = cliente.getPerfils().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.dataCriacao = cliente.getDataCriacao();
+		this.dataAtualizacao = cliente.getDataAtualizacao();
 		this.nome = cliente.getNome();
 		this.senha = cliente.getSenha();
 		addPerfil(Perfil.CLIENTE);
@@ -109,7 +113,13 @@ public class ClienteDTO  implements Serializable{
 	public void setDataCriacao(LocalDate dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-	
-	
+
+	public LocalDate getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(LocalDate dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
 
 }

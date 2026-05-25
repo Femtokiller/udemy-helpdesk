@@ -34,7 +34,10 @@ public class TecnicoDTO implements Serializable{
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
-		
+
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	protected LocalDate dataAtualizacao = LocalDate.now();
+	
 	public TecnicoDTO() {
 		super();
 		addPerfil(Perfil.TECNICO);
@@ -47,6 +50,7 @@ public class TecnicoDTO implements Serializable{
 		this.email = tecnico.getEmail();
 		//this.perfis = tecnico.getPerfils().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.dataCriacao = tecnico.getDataCriacao();
+		this.dataAtualizacao = tecnico.getDataAtualizacao();
 		this.nome = tecnico.getNome();
 		this.senha = tecnico.getSenha();
 		addPerfil(Perfil.TECNICO);
@@ -109,5 +113,11 @@ public class TecnicoDTO implements Serializable{
 		this.dataCriacao = dataCriacao;
 	}
 
-	
+	public LocalDate getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(LocalDate dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
 }

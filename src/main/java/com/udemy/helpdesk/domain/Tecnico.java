@@ -38,6 +38,7 @@ public class Tecnico extends Pessoa
 		this.cpf = tecnicoDto.getCpf();
 		this.email = tecnicoDto.getEmail();
 		this.dataCriacao = tecnicoDto.getDataCriacao();
+		this.dataAtualizacao = tecnicoDto.getDataAtualizacao();
 		this.nome = tecnicoDto.getNome();
 		this.senha = tecnicoDto.getSenha();
 		addPerfil(Perfil.TECNICO);
