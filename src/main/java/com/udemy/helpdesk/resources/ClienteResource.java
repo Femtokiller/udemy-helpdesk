@@ -20,6 +20,8 @@ import com.udemy.helpdesk.domain.dtos.ClienteDTO;
 import com.udemy.helpdesk.domain.dtos.TecnicoDTO;
 import com.udemy.helpdesk.services.ClienteService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value="/clientes")
 public class ClienteResource 
@@ -43,7 +45,7 @@ public class ClienteResource
 	}
 	
 	@PostMapping
-	public ResponseEntity<ClienteDTO> create(@RequestBody ClienteDTO clienteRequest)
+	public ResponseEntity<ClienteDTO> create(@RequestBody @Valid ClienteDTO clienteRequest)
 	{
 		Cliente cliente = this.service.create(clienteRequest);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
