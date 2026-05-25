@@ -1,7 +1,6 @@
 package com.udemy.helpdesk.resources;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +17,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.udemy.helpdesk.domain.Tecnico;
 import com.udemy.helpdesk.domain.dtos.TecnicoDTO;
 import com.udemy.helpdesk.services.TecnicoService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value="/tecnicos")
@@ -45,7 +46,7 @@ public class TecnicoResource
 	}
 	
 	@PostMapping
-	public ResponseEntity<TecnicoDTO> create(@RequestBody TecnicoDTO tecnicoRequest)
+	public ResponseEntity<TecnicoDTO> create(@RequestBody @Valid TecnicoDTO tecnicoRequest)
 	{
 		Tecnico tecnico = this.service.create(tecnicoRequest);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tecnico.getId()).toUri();

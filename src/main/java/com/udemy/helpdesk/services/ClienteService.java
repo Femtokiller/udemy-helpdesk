@@ -17,6 +17,9 @@ public class ClienteService
 	@Autowired
 	private ClienteRepository repository;
 	
+	@Autowired
+	private PessoaService pessoaService;
+	
 	public Cliente findById(Integer id)
 	{
 		Optional<Cliente> cliente = repository.findById(id);		
@@ -29,6 +32,8 @@ public class ClienteService
 
 	public Cliente create(ClienteDTO clienteRequest) {
 		clienteRequest.setId(null);
+		pessoaService.validaCpf(clienteRequest.getCpf(), clienteRequest.getId());
+		pessoaService.validaEmail(clienteRequest.getEmail(), clienteRequest.getId());
 		Cliente cliente = new Cliente(clienteRequest);
 		return repository.save(cliente);
 	}

@@ -6,33 +6,43 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.udemy.helpdesk.domain.Pessoa;
 import com.udemy.helpdesk.domain.Tecnico;
 import com.udemy.helpdesk.domain.dtos.TecnicoDTO;
+import com.udemy.helpdesk.repositories.PessoaRepository;
 import com.udemy.helpdesk.repositories.TecnicoRepository;
+import com.udemy.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class TecnicoService 
 {
 	@Autowired
-	private TecnicoRepository repository;
+	private TecnicoRepository tecnicoRepository;
+	
+	@Autowired
+	private PessoaService pessoaService;
 	
 	public Tecnico findById(Integer id)
 	{
-		Optional<Tecnico> tecnico = repository.findById(id);		
+		Optional<Tecnico> tecnico = tecnicoRepository.findById(id);		
 		return tecnico.orElseThrow(() -> new ObjectNotFoundException("Técnico não encontrado! ID: " + id));
 	}
 
 	public List<Tecnico> findAll() {
-		return repository.findAll();
+		return tecnicoRepository.findAll();
 	}
 
 	public Tecnico create(TecnicoDTO tecnicoRequest) 
 	{
 		tecnicoRequest.setId(null);
+		pessoaService.validaCpf(tecnicoRequest.getCpf(), tecnicoRequest.getId());
+		pessoaService.validaEmail(tecnicoRequest.getEmail(), tecnicoRequest.getId());
 		Tecnico tecnico = new Tecnico(tecnicoRequest);
-		return repository.save(tecnico);
+		return tecnicoRepository.save(tecnico);
 	}
+
+
 	
 	
 	
