@@ -2,6 +2,7 @@ package com.udemy.helpdesk.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,11 +43,11 @@ public abstract class Pessoa implements Serializable {
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "dataCriacao")
-	protected LocalDate dataCriacao = LocalDate.now();
+	protected LocalDateTime dataCriacao;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "dataAtualizacao")
-	protected LocalDate dataAtualizacao = LocalDate.now();
+	protected LocalDateTime dataAtualizacao;
 
 	protected String nome;
 	protected String senha;
@@ -120,19 +121,19 @@ public abstract class Pessoa implements Serializable {
 		this.perfilsId = perfil.getCodigo();
 	}
 	 
-	public LocalDate getDataCriacao() {
+	public LocalDateTime getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(LocalDate dataCriacao) {
+	public void setDataCriacao(LocalDateTime dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 	
-	public LocalDate getDataAtualizacao() {
+	public LocalDateTime getDataAtualizacao() {
 		return dataAtualizacao;
 	}
 
-	public void setDataAtualizacao(LocalDate dataAtualizacao) {
+	public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 

@@ -20,7 +20,6 @@ import com.udemy.helpdesk.domain.Tecnico;
 import com.udemy.helpdesk.domain.dtos.TecnicoDTO;
 import com.udemy.helpdesk.services.TecnicoService;
 
-import jakarta.persistence.PostUpdate;
 import jakarta.validation.Valid;
 
 @RestController

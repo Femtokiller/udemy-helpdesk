@@ -1,11 +1,13 @@
 package com.udemy.helpdesk.services;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.udemy.helpdesk.domain.Tecnico;
 import com.udemy.helpdesk.domain.dtos.TecnicoDTO;
@@ -34,30 +36,32 @@ public class TecnicoService
 		return tecnicoRepository.findAll();
 	}
 
-	public Tecnico create(TecnicoDTO tecnicoRequest) 
+	public Tecnico create(@Valid TecnicoDTO tecnicoRequest) 
 	{
 		tecnicoRequest.setId(null);
-		pessoaService.validaCpf(tecnicoRequest.getCpf(), tecnicoRequest.getId());
-		pessoaService.validaEmail(tecnicoRequest.getEmail(), tecnicoRequest.getId());
-		Tecnico tecnico = new Tecnico(tecnicoRequest);
-		return tecnicoRepository.save(tecnico);
+		tecnicoRequest.setDataCriacao(LocalDateTime.now());
+	
+		return tecnicoRepository.save(novoTecnico(tecnicoRequest));
 	}
 
 	public Tecnico update(Integer id, @Valid TecnicoDTO tecnicoRequest) 
-	{
-		tecnicoRequest.setId(id);
+	{		
 		Tecnico tecnico = findById(id);
-		LocalDate dataCriacao = tecnico.getDataCriacao(); 
+		tecnicoRequest.setId(id);
+		tecnicoRequest.setDataCriacao(tecnico.getDataCriacao());
 		
-		if(!tecnicoRequest.getCpf().isEmpty())
-			pessoaService.validaCpf(tecnicoRequest.getCpf(), id);
+		return tecnicoRepository.save(novoTecnico(tecnicoRequest));
+	}
+	
+	private Tecnico novoTecnico(TecnicoDTO tecnicoRequest) 
+	{
+		pessoaService.validaCpf(tecnicoRequest.getCpf(), tecnicoRequest.getId());
+		pessoaService.validaEmail(tecnicoRequest.getEmail(), tecnicoRequest.getId());
 		
-		if(tecnicoRequest.getEmail().isEmpty())
-			pessoaService.validaEmail(tecnicoRequest.getEmail(), id);
+		Tecnico tecnico = new Tecnico(tecnicoRequest);
+		tecnico.setDataAtualizacao(LocalDateTime.now());
 		
-		tecnico = new Tecnico(tecnicoRequest);
-		tecnico.setDataCriacao(dataCriacao);
-		return tecnicoRepository.save(tecnico);
+		return tecnico;
 	}
 
 	public void delete(Integer id) 

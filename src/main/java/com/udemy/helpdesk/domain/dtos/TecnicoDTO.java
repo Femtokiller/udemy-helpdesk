@@ -1,7 +1,7 @@
 package com.udemy.helpdesk.domain.dtos;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,10 +33,10 @@ public class TecnicoDTO implements Serializable{
 	protected Set<Integer> perfis = new HashSet<>();
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	protected LocalDate dataCriacao = LocalDate.now();
+	protected LocalDateTime dataCriacao;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	protected LocalDate dataAtualizacao = LocalDate.now();
+	protected LocalDateTime dataAtualizacao;
 	
 	public TecnicoDTO() {
 		super();
@@ -49,10 +49,10 @@ public class TecnicoDTO implements Serializable{
 		this.cpf = tecnico.getCpf();
 		this.email = tecnico.getEmail();
 		//this.perfis = tecnico.getPerfils().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
-		this.dataCriacao = tecnico.getDataCriacao();
-		this.dataAtualizacao = tecnico.getDataAtualizacao();
 		this.nome = tecnico.getNome();
 		this.senha = tecnico.getSenha();
+		this.dataCriacao = tecnico.getDataCriacao();
+		this.dataAtualizacao = tecnico.getDataAtualizacao();
 		addPerfil(Perfil.TECNICO);
 	}
 
@@ -105,19 +105,19 @@ public class TecnicoDTO implements Serializable{
 		this.perfis.add(perfil.getCodigo());
 	}
 
-	public LocalDate getDataCriacao() {
+	public LocalDateTime getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(LocalDate dataCriacao) {
+	public void setDataCriacao(LocalDateTime dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public LocalDate getDataAtualizacao() {
+	public LocalDateTime getDataAtualizacao() {
 		return dataAtualizacao;
 	}
 
-	public void setDataAtualizacao(LocalDate dataAtualizacao) {
+	public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 }

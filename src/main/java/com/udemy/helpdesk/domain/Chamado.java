@@ -1,11 +1,10 @@
 package com.udemy.helpdesk.domain;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.udemy.helpdesk.domain.enums.Prioridade;
-import com.udemy.helpdesk.domain.enums.Status;
+import com.udemy.helpdesk.domain.dtos.ChamadoDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,10 +27,13 @@ public class Chamado implements Serializable
 	private Integer id;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataAbertura = LocalDate.now();
+	private LocalDateTime dataAbertura;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataFechamento = LocalDate.now();
+	private LocalDateTime dataFechamento;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDateTime dataAtualizacao;
 	
 	@ManyToOne
 	@JoinColumn(name = "tecnico_id")
@@ -41,8 +43,8 @@ public class Chamado implements Serializable
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
-	private Prioridade prioridade;
-	private Status status;
+	private Integer prioridade;
+	private Integer status;
 	private String titulo;
 	private String observacoes;
 	
@@ -51,7 +53,7 @@ public class Chamado implements Serializable
 		// TODO Auto-generated constructor stub
 	}
 
-	public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico,
+	public Chamado(Integer id, Integer prioridade, Integer status, String titulo, String observacoes, Tecnico tecnico,
 			Cliente cliente) {
 		super();
 		this.id = id;
@@ -62,6 +64,20 @@ public class Chamado implements Serializable
 		this.tecnico = tecnico;
 		this.cliente = cliente;
 	}
+	
+	public Chamado(ChamadoDTO chamado) 
+	{
+		super();
+		this.id = chamado.getId();
+		this.status = chamado.getStatusId();
+		this.prioridade = chamado.getPrioridadeId();		
+		this.titulo = chamado.getTitulo();
+		this.observacoes = chamado.getObservacoes();
+		this.dataAbertura = chamado.getDataAbertura();
+		this.dataAtualizacao = chamado.getDataAtualizacao();
+		this.dataFechamento = chamado.getDataFechamento();
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -71,35 +87,35 @@ public class Chamado implements Serializable
 		this.id = id;
 	}
 
-	public LocalDate getDataAbertura() {
+	public LocalDateTime getDataAbertura() {
 		return dataAbertura;
 	}
 
-	public void setDataAbertura(LocalDate dataAbertura) {
+	public void setDataAbertura(LocalDateTime dataAbertura) {
 		this.dataAbertura = dataAbertura;
 	}
 
-	public LocalDate getDataFechamento() {
+	public LocalDateTime getDataFechamento() {
 		return dataFechamento;
 	}
 
-	public void setDataFechamento(LocalDate dataFechamento) {
+	public void setDataFechamento(LocalDateTime dataFechamento) {
 		this.dataFechamento = dataFechamento;
 	}
 
-	public Prioridade getPrioridade() {
+	public Integer getPrioridade() {
 		return prioridade;
 	}
 
-	public void setPrioridade(Prioridade prioridade) {
+	public void setPrioridade(Integer prioridade) {
 		this.prioridade = prioridade;
 	}
 
-	public Status getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
@@ -133,6 +149,14 @@ public class Chamado implements Serializable
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	
+	public LocalDateTime getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
 	}
 
 	@Override

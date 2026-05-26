@@ -1,6 +1,7 @@
 package com.udemy.helpdesk.services;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,29 +36,32 @@ public class ClienteService
 		return clienteRepository.findAll();
 	}
 
-	public Cliente create(ClienteDTO clienteRequest) {
+	public Cliente create(@Valid ClienteDTO clienteRequest) 
+	{
 		clienteRequest.setId(null);
-		pessoaService.validaCpf(clienteRequest.getCpf(), clienteRequest.getId());
-		pessoaService.validaEmail(clienteRequest.getEmail(), clienteRequest.getId());
-		Cliente cliente = new Cliente(clienteRequest);
-		return clienteRepository.save(cliente);
+		clienteRequest.setDataCriacao(LocalDateTime.now());
+		
+		return clienteRepository.save(novoCliente(clienteRequest));
 	}
 	
 	public Cliente update(Integer id, @Valid ClienteDTO clienteRequest) 
 	{
-		clienteRequest.setId(id);
 		Cliente cliente = findById(id);
-		LocalDate dataCriacao = cliente.getDataCriacao(); 
+		clienteRequest.setId(id);		
+		clienteRequest.setDataCriacao(cliente.getDataCriacao()); 
 		
-		if(!clienteRequest.getCpf().isEmpty())
-			pessoaService.validaCpf(clienteRequest.getCpf(), id);
+		return clienteRepository.save(novoCliente(clienteRequest));
+	}
+	
+	private Cliente novoCliente(ClienteDTO clienteRequest) 
+	{
+		pessoaService.validaCpf(clienteRequest.getCpf(), clienteRequest.getId());
+		pessoaService.validaEmail(clienteRequest.getEmail(), clienteRequest.getId());
 		
-		if(clienteRequest.getEmail().isEmpty())
-			pessoaService.validaEmail(clienteRequest.getEmail(), id);
+		Cliente cliente = new Cliente(clienteRequest);
+		cliente.setDataAtualizacao(LocalDateTime.now());
 		
-		cliente = new Cliente(clienteRequest);
-		cliente.setDataCriacao(dataCriacao);
-		return clienteRepository.save(cliente);
+		return cliente;
 	}
 
 	public void delete(Integer id)

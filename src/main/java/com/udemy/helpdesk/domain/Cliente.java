@@ -36,10 +36,10 @@ public class Cliente extends Pessoa
 		this.id = clienteDto.getId();
 		this.cpf = clienteDto.getCpf();
 		this.email = clienteDto.getEmail();
-		this.dataCriacao = clienteDto.getDataCriacao();
-		this.dataAtualizacao = clienteDto.getDataAtualizacao();
 		this.nome = clienteDto.getNome();
 		this.senha = clienteDto.getSenha();
+		this.dataCriacao = clienteDto.getDataCriacao();
+		this.dataAtualizacao = clienteDto.getDataAtualizacao();
 		addPerfil(Perfil.CLIENTE);
 	}
 
