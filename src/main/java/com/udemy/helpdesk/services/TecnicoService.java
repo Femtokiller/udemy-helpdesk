@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.udemy.helpdesk.domain.Tecnico;
 import com.udemy.helpdesk.domain.dtos.TecnicoDTO;
 import com.udemy.helpdesk.repositories.TecnicoRepository;
+import com.udemy.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
 
 import jakarta.validation.Valid;
@@ -57,6 +58,16 @@ public class TecnicoService
 		tecnico = new Tecnico(tecnicoRequest);
 		tecnico.setDataCriacao(dataCriacao);
 		return tecnicoRepository.save(tecnico);
+	}
+
+	public void delete(Integer id) 
+	{
+		Tecnico tecnico = findById(id);
+		
+		if(tecnico.getChamados().size() > 0)
+			throw new DataIntegrityViolationException("Técnico contém ordens de serviço e não pode ser deletado!");
+		
+		tecnicoRepository.deleteById(id);
 	}
 	
 }

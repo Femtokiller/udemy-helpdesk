@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.udemy.helpdesk.domain.Cliente;
-import com.udemy.helpdesk.domain.Tecnico;
 import com.udemy.helpdesk.domain.dtos.ClienteDTO;
-import com.udemy.helpdesk.domain.dtos.TecnicoDTO;
 import com.udemy.helpdesk.services.ClienteService;
 
 import jakarta.validation.Valid;
@@ -59,5 +58,12 @@ public class ClienteResource
 	{
 		Cliente cliente = this.service.update(id, clienteRequest);
 		return ResponseEntity.ok().body(new ClienteDTO(cliente));		
+	}
+	
+	@DeleteMapping(value="/{id}")
+	public ResponseEntity<ClienteDTO> delete( @PathVariable Integer id)
+	{
+		this.service.delete(id);
+		return ResponseEntity.noContent().build();	
 	}
 }

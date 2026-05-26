@@ -46,6 +46,11 @@ public class Chamado implements Serializable
 	private String titulo;
 	private String observacoes;
 	
+	public Chamado() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico,
 			Cliente cliente) {
 		super();

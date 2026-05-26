@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.udemy.helpdesk.domain.Cliente;
+import com.udemy.helpdesk.domain.Tecnico;
 import com.udemy.helpdesk.domain.dtos.ClienteDTO;
 import com.udemy.helpdesk.repositories.ClienteRepository;
+import com.udemy.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.udemy.helpdesk.services.exceptions.ObjectNotFoundException;
 
 import jakarta.validation.Valid;
@@ -56,5 +58,15 @@ public class ClienteService
 		cliente = new Cliente(clienteRequest);
 		cliente.setDataCriacao(dataCriacao);
 		return clienteRepository.save(cliente);
+	}
+
+	public void delete(Integer id)
+	{
+		Cliente cliente = findById(id);
+		
+		if(cliente.getChamados().size() > 0)
+			throw new DataIntegrityViolationException("Cliente contém ordens de serviço e não pode ser deletado!");
+		
+		clienteRepository.deleteById(id);		
 	}
 }
