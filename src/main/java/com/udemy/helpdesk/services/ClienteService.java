@@ -1,15 +1,14 @@
 package com.udemy.helpdesk.services;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.udemy.helpdesk.domain.Cliente;
-import com.udemy.helpdesk.domain.Tecnico;
 import com.udemy.helpdesk.domain.dtos.ClienteDTO;
 import com.udemy.helpdesk.repositories.ClienteRepository;
 import com.udemy.helpdesk.services.exceptions.DataIntegrityViolationException;
@@ -25,6 +24,9 @@ public class ClienteService
 	
 	@Autowired
 	private PessoaService pessoaService;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	public Cliente findById(Integer id)
 	{
@@ -57,6 +59,7 @@ public class ClienteService
 	{
 		pessoaService.validaCpf(clienteRequest.getCpf(), clienteRequest.getId());
 		pessoaService.validaEmail(clienteRequest.getEmail(), clienteRequest.getId());
+		clienteRequest.setSenha(encoder.encode(clienteRequest.getSenha()));
 		
 		Cliente cliente = new Cliente(clienteRequest);
 		cliente.setDataAtualizacao(LocalDateTime.now());

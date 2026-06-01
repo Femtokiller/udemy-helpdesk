@@ -1,13 +1,12 @@
 package com.udemy.helpdesk.services;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import com.udemy.helpdesk.domain.Tecnico;
 import com.udemy.helpdesk.domain.dtos.TecnicoDTO;
@@ -25,6 +24,9 @@ public class TecnicoService
 	
 	@Autowired
 	private PessoaService pessoaService;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	public Tecnico findById(Integer id)
 	{
@@ -57,6 +59,7 @@ public class TecnicoService
 	{
 		pessoaService.validaCpf(tecnicoRequest.getCpf(), tecnicoRequest.getId());
 		pessoaService.validaEmail(tecnicoRequest.getEmail(), tecnicoRequest.getId());
+		tecnicoRequest.setSenha(encoder.encode(tecnicoRequest.getSenha()));
 		
 		Tecnico tecnico = new Tecnico(tecnicoRequest);
 		tecnico.setDataAtualizacao(LocalDateTime.now());

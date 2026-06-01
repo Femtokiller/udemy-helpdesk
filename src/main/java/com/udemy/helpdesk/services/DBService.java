@@ -18,7 +18,7 @@ public class DBService {
 
 	@Autowired
 	private ChamadoRepository chamadoRepository;
-
+	
 	public void instanciaDB() {
 		
 		/*
