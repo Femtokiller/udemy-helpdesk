@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class ChamadoResource
 	@Autowired
 	private ChamadoService service;
 	
+	@PreAuthorize("hasAnyRole('TECNICO','CLIENTE','ADMIN')")
 	@GetMapping(value="/{id}")
 	public ResponseEntity<ChamadoDTO> findById(@PathVariable Integer id)
 	{
@@ -36,6 +38,7 @@ public class ChamadoResource
 		return ResponseEntity.ok().body(new ChamadoDTO(chamado));
 	}
 	
+	@PreAuthorize("hasAnyRole('TECNICO','CLIENTE','ADMIN')")
 	@GetMapping
 	public ResponseEntity<List<ChamadoDTO>> findAll()
 	{
@@ -46,6 +49,7 @@ public class ChamadoResource
 		return ResponseEntity.ok().body(chamadoDtoList);
 	}
 	
+	@PreAuthorize("hasAnyRole('TECNICO','CLIENTE','ADMIN')")
 	@PostMapping
 	public ResponseEntity<ChamadoDTO> create(@RequestBody @Valid ChamadoDTO chamadoRequest)
 	{
@@ -54,6 +58,7 @@ public class ChamadoResource
 		return ResponseEntity.created(uri).build();		
 	}
 	
+	@PreAuthorize("hasAnyRole('TECNICO','CLIENTE','ADMIN')")
 	@PutMapping(value="/{id}")
 	public ResponseEntity<ChamadoDTO> update(@RequestBody @Valid  ChamadoDTO chamadoRequest, @PathVariable Integer id)
 	{
@@ -61,6 +66,7 @@ public class ChamadoResource
 		return ResponseEntity.ok().body(new ChamadoDTO(chamado));		
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<ChamadoDTO> delete(@PathVariable Integer id)
 	{

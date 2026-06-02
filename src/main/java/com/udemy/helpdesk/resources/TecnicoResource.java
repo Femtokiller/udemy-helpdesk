@@ -30,6 +30,7 @@ public class TecnicoResource
 	@Autowired
 	private TecnicoService service;
 	
+	@PreAuthorize("hasAnyRole('TECNICO','ADMIN')")
 	@GetMapping(value="/{id}")
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id)
 	{
@@ -48,6 +49,7 @@ public class TecnicoResource
 		return ResponseEntity.ok().body(tecnicoDtoList);
 	}
 	
+	@PreAuthorize("hasAnyRole('TECNICO','ADMIN')")
 	@PostMapping
 	public ResponseEntity<TecnicoDTO> create(@RequestBody @Valid TecnicoDTO tecnicoRequest)
 	{
@@ -57,6 +59,7 @@ public class TecnicoResource
 		
 	}
 	
+	@PreAuthorize("hasAnyRole('TECNICO','ADMIN')")
 	@PutMapping(value="/{id}")
 	public ResponseEntity<TecnicoDTO> update(@RequestBody @Valid TecnicoDTO tecnicoRequest, @PathVariable Integer id)
 	{

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class ClienteResource
 	@Autowired
 	private ClienteService service;
 	
+	@PreAuthorize("hasAnyRole('TECNICO','CLIENTE','ADMIN')")
 	@GetMapping(value="/{id}")
 	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id)
 	{
@@ -36,6 +38,7 @@ public class ClienteResource
 		return ResponseEntity.ok().body(new ClienteDTO(cliente));
 	}
 	
+	@PreAuthorize("hasAnyRole('TECNICO','ADMIN')")
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> findAll()
 	{
@@ -44,6 +47,7 @@ public class ClienteResource
 		return ResponseEntity.ok().body(clienteDtoList);
 	}
 	
+	@PreAuthorize("hasAnyRole('TECNICO','ADMIN')")
 	@PostMapping
 	public ResponseEntity<ClienteDTO> create(@RequestBody @Valid ClienteDTO clienteRequest)
 	{
@@ -53,6 +57,7 @@ public class ClienteResource
 		
 	}
 	
+	@PreAuthorize("hasAnyRole('CLIENTE','ADMIN')")
 	@PutMapping(value="/{id}")
 	public ResponseEntity<ClienteDTO> update(@RequestBody @Valid ClienteDTO clienteRequest, @PathVariable Integer id)
 	{
@@ -60,6 +65,7 @@ public class ClienteResource
 		return ResponseEntity.ok().body(new ClienteDTO(cliente));		
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<ClienteDTO> delete( @PathVariable Integer id)
 	{
