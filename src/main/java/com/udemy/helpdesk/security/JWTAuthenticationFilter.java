@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tools.jackson.databind.ObjectMapper;
 
-public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter { //extends OncePerRequestFilter {
+public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	
 	private AuthenticationManager authenticationManager;
 	
