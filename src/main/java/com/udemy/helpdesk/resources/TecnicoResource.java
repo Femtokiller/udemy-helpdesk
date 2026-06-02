@@ -38,7 +38,7 @@ public class TecnicoResource
 		return ResponseEntity.ok().body(new TecnicoDTO(tecnico));
 	}
 	
-	@PreAuthorize("hasAnyRole('TECNICO','ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping
 	public ResponseEntity<List<TecnicoDTO>> findAll()
 	{
@@ -49,7 +49,7 @@ public class TecnicoResource
 		return ResponseEntity.ok().body(tecnicoDtoList);
 	}
 	
-	@PreAuthorize("hasAnyRole('TECNICO','ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<TecnicoDTO> create(@RequestBody @Valid TecnicoDTO tecnicoRequest)
 	{

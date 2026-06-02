@@ -1,0 +1,471 @@
+{
+  "info": {
+    "_postman_id": "d8832145-419c-4adf-9200-0122fb4a54a0",
+    "name": "Helpdesk",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55124618",
+    "_collection_link": "https://go.postman.co/collection/55124618-d8832145-419c-4adf-9200-0122fb4a54a0?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Tecnico",
+      "item": [
+        {
+          "name": "Busca Tecnicos",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/tecnicos",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "tecnicos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cria Tecnicos",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n        \"cpf\": \"35405623970\",\r\n        \"email\": \"tec3@mail.com\",\r\n        \"nome\": \"Tec3\",\r\n        \"senha\": \"345\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/tecnicos",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "tecnicos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualiza Tecnico",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n        \"cpf\": \"09636800561\",\r\n        \"email\": \"tec20@mail.com\",\r\n        \"nome\": \"Tec2\",\r\n        \"senha\": \"123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/tecnicos/4",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "tecnicos",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Apaga Tecnico",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/tecnicos/9",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "tecnicos",
+                "9"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cliente",
+      "item": [
+        {
+          "name": "Busca Clientes",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/clientes",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cria Clientes",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n        \"cpf\": \"73372097971\",\r\n        \"email\": \"cli3@mail.com\",\r\n        \"nome\": \"Cliente3\",\r\n        \"senha\": \"234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/clientes",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualiza Clientes",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n        \"cpf\": \"73372097971\",\r\n        \"email\": \"cli3@mail.com\",\r\n        \"nome\": \"Cliente3\",\r\n        \"senha\": \"123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/clientes/12",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clientes",
+                "12"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Apaga Cliente",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/clientes/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "clientes",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Chamado",
+      "item": [
+        {
+          "name": "Busca Chamados",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/chamados",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "chamados"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cria Chamados",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"clienteId\": 5,\r\n    \"observacoes\": \"teste de criação 3\",\r\n    \"prioridadeId\": 0,\r\n    \"statusId\": 0,\r\n    \"tecnicoId\": 3,\r\n    \"titulo\": \"Teste criação 3\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/chamados",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "chamados"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualiza Chamados",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"clienteId\": 5,\r\n    \"observacoes\": \"teste de atualização\",\r\n    \"prioridadeId\": 1,\r\n    \"statusId\": 0,\r\n    \"tecnicoId\": 3,\r\n    \"titulo\": \"Teste atualização\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/chamados/1",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "chamados",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Apaga chamado",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/chamados/5",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "chamados",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n        \"email\": \"adm@mail.com\",\r\n        \"senha\": \"123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/login",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}

@@ -38,7 +38,7 @@ public class ChamadoResource
 		return ResponseEntity.ok().body(new ChamadoDTO(chamado));
 	}
 	
-	@PreAuthorize("hasAnyRole('TECNICO','CLIENTE','ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping
 	public ResponseEntity<List<ChamadoDTO>> findAll()
 	{
